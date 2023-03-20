@@ -5,6 +5,8 @@ from src.controller.keyboard import Keyboard
 from src.listener.eventmanager import EventManagerWeak
 from src.model.gameengine import GameEngine
 from src.view.canvas import Canvas
+from src.view.tetris_render import TetrisRender
+from src.view.candy_crush_render import CandyCrushRender
 
 
 def run():
@@ -12,6 +14,7 @@ def run():
     gamemodel = GameEngine(evManager, Tetris())
     keyboard = Keyboard(evManager, gamemodel)
     graphics = Canvas(evManager, gamemodel)
+    # graphics = Canvas(evManager, gamemodel, renderer)
     gamemodel.run()
 
 

@@ -4,6 +4,8 @@ from src.listener.iobserver import IObserver
 from src.listener.eventmanager import EventManagerWeak, InitializeEvent, QuitEvent, StateChangeEvent, TickEvent
 from src.model.gameengine import GameEngine
 from src.model.tetris import Tetris
+from src.view.tetris_render import TetrisRender
+from src.view.candycrush_render import CandyCrushRender
 
 class Canvas(IObserver):
     def __init__(self, evManager: 'EventManagerWeak', model: 'GameEngine'):
@@ -51,16 +53,17 @@ class Canvas(IObserver):
 
     def rendergame(self):
 
-        #just to keep it for now
-        # self.draw_window(self.model.game.grid)
-        #
-        # if isinstance(self.model.game, Tetris):
-        #     self.model.game.draw_next_shape(self.screen, self.model.game.next_piece)
-        #
-        # pygame.display.update()
+        # just to keep it for now
+        self.draw_window(self.model.game.grid)
 
-        self.model.game.render(self)
+        if isinstance(self.model.game, Tetris):
+            self.model.game.draw_next_shape(self.screen, self.model.game.next_piece)
+
+
         pygame.display.update()
+
+        # self.model.game.render(self)
+        # pygame.display.update()
 
     def renderGameOver(self):
         self.draw_text_middle("You Lost", 40, (255, 255, 255))
@@ -125,19 +128,19 @@ class Canvas(IObserver):
 
         #draw any additional graphic
 
-    def draw_next_shape(self, shape):
-        font = pygame.font.SysFont('comicsans', 30)
-        label = font.render('Next Shape', 1, (255, 255, 255))
-
-        sx = Constants.TOP_LEFT_X + Constants.PLAY_WIDTH + 50
-        sy = Constants.TOP_LEFT_Y + Constants.PLAY_HEIGHT/2 - 100
-        format = shape.shape[shape.rotation % len(shape.shape)]
-
-        for i, line in enumerate(format):
-            row = list(line)
-            for j, column in enumerate(row):
-                if column == '0':
-                    pygame.draw.rect(self.screen, shape.color,
-                                     (sx + j*30, sy + i*30, 30, 30), 0)
-
-        self.screen.blit(label, (sx + 10, sy - 30))
+    # def draw_next_shape(self, shape):
+    #     font = pygame.font.SysFont('comicsans', 30)
+    #     label = font.render('Next Shape', 1, (255, 255, 255))
+    #
+    #     sx = Constants.TOP_LEFT_X + Constants.PLAY_WIDTH + 50
+    #     sy = Constants.TOP_LEFT_Y + Constants.PLAY_HEIGHT/2 - 100
+    #     format = shape.shape[shape.rotation % len(shape.shape)]
+    #
+    #     for i, line in enumerate(format):
+    #         row = list(line)
+    #         for j, column in enumerate(row):
+    #             if column == '0':
+    #                 pygame.draw.rect(self.screen, shape.color,
+    #                                  (sx + j*30, sy + i*30, 30, 30), 0)
+    #
+    #     self.screen.blit(label, (sx + 10, sy - 30))
